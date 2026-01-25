@@ -11,20 +11,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Fraunces:opsz,wght@9..144,600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
         color-scheme: light;
-        --bg: #f6f1ea;
-        --bg-2: #efe7dc;
-        --ink: #1b1a17;
-        --muted: #4b4a47;
-        --accent: #e46f1b;
-        --accent-2: #0f7a6b;
-        --card: #fff8f0;
-        --shadow: 0 20px 60px rgba(20, 18, 16, 0.15);
+        --bg: #f5efe6;
+        --bg-2: #efe7db;
+        --ink: #171513;
+        --muted: #4d4944;
+        --accent: #e4572e;
+        --accent-2: #1b8c7a;
+        --card: #fffaf3;
+        --shadow: 0 28px 70px rgba(20, 16, 12, 0.18);
       }
 
       * {
@@ -33,11 +33,12 @@
 
       body {
         margin: 0;
-        font-family: "Space Grotesk", "Segoe UI", sans-serif;
+        font-family: "Manrope", "Segoe UI", sans-serif;
         color: var(--ink);
         background:
-          radial-gradient(1200px 600px at 10% 10%, #ffe7cf 0%, transparent 60%),
-          radial-gradient(900px 520px at 90% 5%, #cfe9e2 0%, transparent 55%),
+          radial-gradient(1000px 520px at 12% 10%, #ffe2c6 0%, transparent 60%),
+          radial-gradient(900px 520px at 88% 8%, #cfeae3 0%, transparent 55%),
+          radial-gradient(700px 380px at 70% 70%, #ffe8f0 0%, transparent 55%),
           linear-gradient(180deg, var(--bg), var(--bg-2));
         min-height: 100vh;
       }
@@ -57,7 +58,7 @@
       }
 
       .title {
-        font-family: "Fraunces", "Georgia", serif;
+        font-family: "Playfair Display", "Georgia", serif;
         font-size: clamp(2.2rem, 4vw, 3.4rem);
         margin: 0 0 12px;
         letter-spacing: -0.01em;
@@ -76,7 +77,7 @@
         align-items: center;
         padding: 8px 14px;
         border-radius: 999px;
-        background: #111;
+        background: #12100f;
         color: #fff;
         font-size: 0.85rem;
         letter-spacing: 0.02em;
@@ -85,6 +86,61 @@
       .accent {
         color: var(--accent);
         font-weight: 700;
+      }
+
+      .hero-visual {
+        position: relative;
+        border-radius: 28px;
+        background: linear-gradient(140deg, #1a1512, #2b231c);
+        color: #fdf8f1;
+        padding: 28px;
+        box-shadow: 0 24px 60px rgba(17, 12, 9, 0.3);
+        overflow: hidden;
+      }
+
+      .hero-visual::before {
+        content: "";
+        position: absolute;
+        inset: -40% auto auto -30%;
+        width: 260px;
+        height: 260px;
+        background: radial-gradient(circle, rgba(228, 87, 46, 0.6), transparent 70%);
+      }
+
+      .hero-visual::after {
+        content: "";
+        position: absolute;
+        inset: auto -20% -30% auto;
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, rgba(27, 140, 122, 0.6), transparent 70%);
+      }
+
+      .hero-visual h2 {
+        margin: 0 0 16px;
+        font-size: 1.5rem;
+      }
+
+      .hero-visual p {
+        margin: 0 0 18px;
+        color: #e6dfd4;
+        line-height: 1.6;
+      }
+
+      .hero-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-tag {
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        font-size: 0.85rem;
       }
 
       .frame {
@@ -117,7 +173,7 @@
         background: #fff;
         border-radius: 18px;
         padding: 20px;
-        border: 1px solid rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.06);
         transition: transform 0.4s ease, box-shadow 0.4s ease;
       }
 
@@ -149,6 +205,10 @@
         grid-template-columns: 44px 1fr;
         gap: 16px;
         align-items: start;
+        background: rgba(255, 255, 255, 0.6);
+        padding: 16px 18px;
+        border-radius: 16px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
       }
 
       .step .num {
@@ -184,6 +244,22 @@
         margin-top: 60px;
         font-size: 0.9rem;
         color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .watermark {
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .section-title {
+        font-family: "Playfair Display", "Georgia", serif;
+        font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+        margin-bottom: 12px;
       }
 
       .reveal {
@@ -218,6 +294,9 @@
         header {
           grid-template-columns: 1fr;
         }
+        footer {
+          flex-direction: column;
+        }
       }
     </style>
   </head>
@@ -238,7 +317,7 @@
           </p>
         </div>
         <div class="frame reveal delay-1">
-          <h2>Que vas a encontrar</h2>
+          <h2 class="section-title">Que vas a encontrar</h2>
           <div class="card-grid">
             <div class="card">
               <h3>Interfaz grafica</h3>
@@ -261,7 +340,23 @@
       </header>
 
       <section class="reveal delay-2">
-        <h2>Como ejecutarlo en tu equipo</h2>
+        <div class="hero-visual">
+          <h2>Simulacion lista para tu laboratorio</h2>
+          <p>
+            Diseñada para experimentar con rangos de movimiento y observar los
+            cambios en fuerzas y torques antes de implementar nuevas rutinas.
+          </p>
+          <div class="hero-tags">
+            <span class="hero-tag">Python 3.x</span>
+            <span class="hero-tag">Tkinter UI</span>
+            <span class="hero-tag">Numpy</span>
+            <span class="hero-tag">Matplotlib</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="reveal delay-2">
+        <h2 class="section-title">Como ejecutarlo en tu equipo</h2>
         <div class="steps">
           <div class="step">
             <div class="num">1</div>
@@ -285,7 +380,8 @@
       </section>
 
       <footer class="reveal delay-3">
-        Preparado para despliegue en Vercel como sitio estatico.
+        <span>Preparado para despliegue en Vercel como sitio estatico.</span>
+        <span class="watermark">(c) 2026 Jeremy Villegas.</span>
       </footer>
     </div>
   </body>

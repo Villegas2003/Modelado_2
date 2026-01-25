@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simulacion de Movimientos de Calistenia</title>
+    <meta
+      name="description"
+      content="Proyecto de simulacion con interfaz grafica en Python (Tkinter). Esta pagina es una vitrina del proyecto y explica como ejecutarlo localmente."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Fraunces:opsz,wght@9..144,600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f6f1ea;
+        --bg-2: #efe7dc;
+        --ink: #1b1a17;
+        --muted: #4b4a47;
+        --accent: #e46f1b;
+        --accent-2: #0f7a6b;
+        --card: #fff8f0;
+        --shadow: 0 20px 60px rgba(20, 18, 16, 0.15);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Space Grotesk", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(1200px 600px at 10% 10%, #ffe7cf 0%, transparent 60%),
+          radial-gradient(900px 520px at 90% 5%, #cfe9e2 0%, transparent 55%),
+          linear-gradient(180deg, var(--bg), var(--bg-2));
+        min-height: 100vh;
+      }
+
+      .page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 48px 24px 72px;
+      }
+
+      header {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        align-items: center;
+        margin-bottom: 48px;
+      }
+
+      .title {
+        font-family: "Fraunces", "Georgia", serif;
+        font-size: clamp(2.2rem, 4vw, 3.4rem);
+        margin: 0 0 12px;
+        letter-spacing: -0.01em;
+      }
+
+      .lead {
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: var(--muted);
+        margin: 0 0 24px;
+      }
+
+      .badge {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: #111;
+        color: #fff;
+        font-size: 0.85rem;
+        letter-spacing: 0.02em;
+      }
+
+      .accent {
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .frame {
+        background: var(--card);
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .frame::after {
+        content: "";
+        position: absolute;
+        inset: -40% -20% auto auto;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: rgba(228, 111, 27, 0.12);
+      }
+
+      .card-grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 24px;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 24px rgba(18, 16, 14, 0.1);
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 1.05rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .steps {
+        margin-top: 36px;
+        display: grid;
+        gap: 18px;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 44px 1fr;
+        gap: 16px;
+        align-items: start;
+      }
+
+      .step .num {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: var(--accent-2);
+        color: #fff;
+        font-weight: 700;
+      }
+
+      pre {
+        background: #151312;
+        color: #f8f1e7;
+        padding: 16px;
+        border-radius: 12px;
+        overflow: auto;
+        font-size: 0.95rem;
+      }
+
+      .note {
+        margin-top: 18px;
+        padding: 16px;
+        border-left: 4px solid var(--accent);
+        background: rgba(228, 111, 27, 0.08);
+        border-radius: 10px;
+        color: var(--muted);
+      }
+
+      footer {
+        margin-top: 60px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: reveal 0.8s ease forwards;
+      }
+
+      .reveal.delay-1 {
+        animation-delay: 0.15s;
+      }
+
+      .reveal.delay-2 {
+        animation-delay: 0.3s;
+      }
+
+      .reveal.delay-3 {
+        animation-delay: 0.45s;
+      }
+
+      @keyframes reveal {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 700px) {
+        .page {
+          padding: 32px 18px 48px;
+        }
+        header {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="reveal">
+        <div>
+          <span class="badge">Proyecto de simulacion</span>
+          <h1 class="title">Movimientos de Calistenia en Tiempo Real</h1>
+          <p class="lead">
+            Este repositorio es una simulacion interactiva en Python con Tkinter.
+            Vercel necesita un archivo HTML, asi que esta pagina sirve como
+            vitrina del proyecto y explica como ejecutarlo localmente.
+          </p>
+          <p class="lead">
+            La interfaz permite ajustar articulaciones y visualizar fuerzas y
+            torques sobre el cuerpo humano con graficos dinamicos.
+          </p>
+        </div>
+        <div class="frame reveal delay-1">
+          <h2>Que vas a encontrar</h2>
+          <div class="card-grid">
+            <div class="card">
+              <h3>Interfaz grafica</h3>
+              <p>Sliders y campos de entrada para angulos de codos, hombros, rodillas y caderas.</p>
+            </div>
+            <div class="card">
+              <h3>Motor fisico</h3>
+              <p>Calculo de fuerzas y torques basado en masas y distancias configurables.</p>
+            </div>
+            <div class="card">
+              <h3>Visualizacion</h3>
+              <p>Matplotlib renderiza la postura del cuerpo y actualiza en tiempo real.</p>
+            </div>
+            <div class="card">
+              <h3>Control total</h3>
+              <p>Explora distintos rangos de movimiento y mira como cambian los resultados.</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="reveal delay-2">
+        <h2>Como ejecutarlo en tu equipo</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <p>Instala dependencias con pip.</p>
+              <pre>pip install numpy matplotlib</pre>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <p>Ejecuta la aplicacion desde la carpeta del proyecto.</p>
+              <pre>python -m src.main</pre>
+            </div>
+          </div>
+        </div>
+        <div class="note">
+          Nota: el proyecto es de escritorio. Vercel solo hospeda esta pagina
+          informativa porque la interfaz Tkinter no corre en el navegador.
+        </div>
+      </section>
+
+      <footer class="reveal delay-3">
+        Preparado para despliegue en Vercel como sitio estatico.
+      </footer>
+    </div>
+  </body>
+</html>
